@@ -1,0 +1,23 @@
+
+-- Insertar datos en country
+INSERT INTO country (name)
+SELECT DISTINCT nombre_departamento
+FROM localidades;
+
+-- Insertar datos en region
+INSERT INTO region (name, idcountry)
+SELECT DISTINCT l.nombre_departamento, c.id
+FROM localidades l
+JOIN country c ON l.nombre_departamento = c.name;
+
+-- Insertar datos en city
+INSERT INTO city (name, idregion)
+SELECT DISTINCT l.nombre_municipio, r.id
+FROM localidades l
+JOIN region r ON l.nombre_departamento = r.name;
+
+-- Actualizar la tabla localidades con las claves foráneas correspondientes
+UPDATE localidades l
+SET codigo_municipio = c.id
+FROM city c
+WHERE l.nombre_municipio = c.name;

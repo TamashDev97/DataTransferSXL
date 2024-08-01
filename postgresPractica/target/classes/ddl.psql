@@ -1,0 +1,30 @@
+-- Crear tabla country
+CREATE TABLE country (
+    id SERIAL PRIMARY KEY,
+    name CHARACTER VARYING(100)
+);
+
+-- Crear tabla region
+CREATE TABLE region (
+    id SERIAL PRIMARY KEY,
+    name CHARACTER VARYING(100),
+    idcountry INTEGER,
+    CONSTRAINT fk_region_country FOREIGN KEY (idcountry) REFERENCES country(id)
+);
+
+-- Crear tabla city
+CREATE TABLE city (
+    id SERIAL PRIMARY KEY,
+    name CHARACTER VARYING(100),
+    idregion INTEGER,
+    CONSTRAINT fk_city_region FOREIGN KEY (idregion) REFERENCES region(id)
+);
+
+-- Crear tabla localidades
+CREATE TABLE localidades (
+    codigo_departamento INTEGER,
+    nombre_departamento CHARACTER VARYING(100),
+    codigo_municipio INTEGER,
+    nombre_municipio CHARACTER VARYING(100)
+);
+
